@@ -2,9 +2,24 @@ use std::io::ErrorKind;
 use std::fmt::Debug;
 use std::borrow::Borrow;
 use std::num::ParseIntError;
-use crate::rules::IncreaseRule;
+use crate::rules::{IncreaseRule, EnumRule, EnumFileRule};
 use std::sync::{Arc, Mutex};
-use chrono::Utc;
+use chrono::{Utc, DateTime};
+
+/// 输出格式的枚举
+#[derive(Debug, Clone, PartialEq)]
+pub enum OutPutType {
+    Json,
+    Csv,
+    //...
+}
+
+/// 包装输出格式的对象的枚举
+#[derive(Debug, Clone)]
+pub enum OutPutTypeValue {
+    Json(serde_json::Value),
+    Csv(Vec<String>),
+}
 
 /// Integer -> 对应 int、integer、smallint和numeric 等等
 /// Float -> float、real和double, precision
@@ -23,7 +38,7 @@ pub enum VariableTypeValue {
     Integer(i64),
     Float(f64),
     String(String),
-    Date(Utc),
+    Date(DateTime<Utc>),
 }
 
 pub trait ConstructRule {
@@ -54,11 +69,10 @@ impl Clone for Box<dyn GenerateRule> {
     }
 }
 
-/////识别Configuration的第三列数据，构造规则，若输入不符合要求返回Err(())
-pub fn construct_from_str(config_str: &str) -> Result<Box<dyn GenerateRule>, ()> {
-    let s = config_str.trim().to_lowercase();
-    if s.starts_with("increase") {
-        return match IncreaseRule::construct(s) {
+macro_rules! match_rules {
+    ($s:expr, $rule_name:expr, $struct_name:ty) => {
+        if $s.starts_with($rule_name) {
+        return match <$struct_name>::construct($s) {
             Ok(e) => {
                 Ok(e as Box<dyn GenerateRule>)
             }
@@ -67,6 +81,15 @@ pub fn construct_from_str(config_str: &str) -> Result<Box<dyn GenerateRule>, ()>
             }
         };
     }
+    };
+}
+
+/////识别Configuration的第三列数据，构造规则，若输入不符合要求返回Err(())
+pub fn construct_from_str(config_str: &str) -> Result<Box<dyn GenerateRule>, ()> {
+    let s = config_str.trim().to_lowercase();
+    match_rules!(s,"increase(",IncreaseRule);
+    match_rules!(s,"enum(",EnumRule);
+    match_rules!(s,"enum_file(",EnumFileRule);
 
     Err(())
 }

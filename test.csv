@@ -1,0 +1,100 @@
+1,李四,# Data Faker
+2,李四,"可选输出类型：int,float,string"
+3,赵四,## 配置文件基本语法
+4,王五,用于随机从枚举的量中抽取数据
+5,王五,## 目前正在编写的生成规则
+6,李四,start:整数，step：整数
+7,赵四,### 1.increase
+8,张三,变量名||输出类型||生成规则
+9,张三,还在编写中.....
+10,王五,灵感来源于https://github.com/gangly/datafaker
+11,张三,### 3.enum_file
+12,张三,start:整数，step：整数
+13,王五,# Data Faker
+14,张三,"可选输出类型：int,string"
+15,李四,用法: enum(file_path)
+16,张三,灵感来源于https://github.com/gangly/datafaker
+17,李四,## 目前正在编写的生成规则
+18,王五,还在编写中.....
+19,赵四,文件中的数据换行隔开，忽略空行
+20,王五,### 2.enum
+21,赵四,"用法: increase(start,step)"
+22,王五,"可选输出类型：int,float,string"
+23,赵四,start:整数，step：整数
+24,李四,"可选输出类型：int,float,string"
+25,赵四,用于生成一串数列
+26,王五,# Data Faker
+27,张三,灵感来源于https://github.com/gangly/datafaker
+28,赵四,一个用Rust编写的制造测试数据的小工具
+29,张三,### 3.enum_file
+30,王五,## 配置文件基本语法
+31,王五,"可选输出类型：int,float,string"
+32,李四,# Data Faker
+33,张三,用于从文件中抽取数据随机枚举
+34,张三,文件中的数据换行隔开，忽略空行
+35,王五,文件中的数据换行隔开，忽略空行
+36,赵四,"可选输出类型：int,float,string"
+37,李四,"用法: increase(start,step)"
+38,王五,"可选输出类型：int,string"
+39,赵四,"可选输出类型：int,float,string"
+40,李四,用于生成一串数列
+41,张三,### 2.enum
+42,王五,## 目前正在编写的生成规则
+43,张三,start:整数，step：整数
+44,张三,"可选输出类型：int,float,string"
+45,张三,用于生成一串数列
+46,赵四,用于生成一串数列
+47,王五,### 3.enum_file
+48,王五,用于生成一串数列
+49,赵四,# Data Faker
+50,李四,"可选输出类型：int,float,string"
+51,王五,用于生成一串数列
+52,王五,"用法: increase(start,step)"
+53,李四,灵感来源于https://github.com/gangly/datafaker
+54,张三,文件中的数据换行隔开，忽略空行
+55,张三,文件中的数据换行隔开，忽略空行
+56,赵四,用于生成一串数列
+57,李四,### 2.enum
+58,赵四,"可选输出类型：int,float,string"
+59,赵四,### 3.enum_file
+60,王五,"可选输出类型：int,float,string"
+61,王五,### 2.enum
+62,张三,"用法：enum(e1,e2,e3,e4)"
+63,张三,"可选输出类型：int,float,string"
+64,王五,## 目前正在编写的生成规则
+65,王五,## 配置文件基本语法
+66,李四,### 1.increase
+67,王五,还在编写中.....
+68,赵四,文件中的数据换行隔开，忽略空行
+69,赵四,## 配置文件基本语法
+70,王五,### 3.enum_file
+71,张三,"用法：enum(e1,e2,e3,e4)"
+72,张三,灵感来源于https://github.com/gangly/datafaker
+73,李四,灵感来源于https://github.com/gangly/datafaker
+74,王五,## 配置文件基本语法
+75,李四,"用法: increase(start,step)"
+76,张三,用于随机从枚举的量中抽取数据
+77,张三,一个用Rust编写的制造测试数据的小工具
+78,王五,变量名||输出类型||生成规则
+79,张三,### 1.increase
+80,张三,start:整数，step：整数
+81,张三,### 3.enum_file
+82,王五,start:整数，step：整数
+83,赵四,### 2.enum
+84,赵四,"用法：enum(e1,e2,e3,e4)"
+85,赵四,## 配置文件基本语法
+86,王五,## 配置文件基本语法
+87,王五,一个用Rust编写的制造测试数据的小工具
+88,张三,文件中的数据换行隔开，忽略空行
+89,李四,"可选输出类型：int,string"
+90,李四,start:整数，step：整数
+91,李四,灵感来源于https://github.com/gangly/datafaker
+92,张三,### 3.enum_file
+93,王五,一个用Rust编写的制造测试数据的小工具
+94,王五,"用法: increase(start,step)"
+95,王五,用于从文件中抽取数据随机枚举
+96,张三,用于随机从枚举的量中抽取数据
+97,赵四,"可选输出类型：int,string"
+98,李四,还在编写中.....
+99,王五,"可选输出类型：int,float,string"
+100,李四,变量名||输出类型||生成规则

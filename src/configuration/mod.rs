@@ -1,10 +1,12 @@
 use std::fs::read_to_string;
 use std::io::{Error, ErrorKind};
-use crate::configuration::definitions::{VariableType, GenerateRule, construct_from_str};
+use crate::configuration::definitions::{VariableType, GenerateRule, construct_from_str, OutPutType, OutPutTypeValue, VariableTypeValue};
 use crate::rules::IncreaseRule;
 use std::sync::{Mutex, Arc};
 use lazy_static::lazy_static;
+use crate::configuration::definitions::OutPutTypeValue::Json;
 use std::collections::HashMap;
+use serde_json::json;
 
 pub mod definitions;
 
@@ -66,6 +68,96 @@ impl FakerConfiguration {
         }
         Ok(config)
     }
+
+    pub fn generate(&self, tt: OutPutType) -> Result<OutPutTypeValue, ()> {
+        return match tt {
+            OutPutType::Json => {
+                let mut map = serde_json::Map::<String, serde_json::Value>::new();
+
+                for n in &self.items {
+                    match n.var_type {
+                        VariableType::Integer => {
+                            let v = n.rule.generate_into(VariableType::Integer)?;
+                            if let VariableTypeValue::Integer(u) = v {
+                                map.insert(n.var_name.clone(), json!(u));
+                            } else {
+                                return Err(());
+                            }
+                        }
+                        VariableType::Float => {
+                            let v = n.rule.generate_into(VariableType::Float)?;
+                            if let VariableTypeValue::Float(u) = v {
+                                map.insert(n.var_name.clone(), json!(u));
+                            } else {
+                                return Err(());
+                            }
+                        }
+                        VariableType::String => {
+                            let v = n.rule.generate_into(VariableType::String)?;
+                            if let VariableTypeValue::String(u) = v {
+                                map.insert(n.var_name.clone(), json!(u));
+                            } else {
+                                return Err(());
+                            }
+                        }
+                        VariableType::Date => {
+                            let v = n.rule.generate_into(VariableType::Date)?;
+                            if let VariableTypeValue::Date(u) = v {
+                                let str = u.format("%Y-%m-%d %H:%M:%S").to_string();
+                                map.insert(n.var_name.clone(), json!(str));
+                            } else {
+                                return Err(());
+                            }
+                        }
+                    }
+                }
+
+                Ok(OutPutTypeValue::Json(serde_json::Value::Object(map)))
+            }
+            OutPutType::Csv => {
+                let mut vec = Vec::<String>::new();
+
+                for n in &self.items {
+                    match n.var_type {
+                        VariableType::Integer => {
+                            let v = n.rule.generate_into(VariableType::Integer)?;
+                            if let VariableTypeValue::Integer(u) = v {
+                                vec.push(u.to_string());
+                            } else {
+                                return Err(());
+                            }
+                        }
+                        VariableType::Float => {
+                            let v = n.rule.generate_into(VariableType::Float)?;
+                            if let VariableTypeValue::Float(u) = v {
+                                vec.push(u.to_string());
+                            } else {
+                                return Err(());
+                            }
+                        }
+                        VariableType::String => {
+                            let v = n.rule.generate_into(VariableType::String)?;
+                            if let VariableTypeValue::String(u) = v {
+                                vec.push(u);
+                            } else {
+                                return Err(());
+                            }
+                        }
+                        VariableType::Date => {
+                            let v = n.rule.generate_into(VariableType::Date)?;
+                            if let VariableTypeValue::Date(u) = v {
+                                let str = u.format("%Y-%m-%d %H:%M:%S").to_string();
+                                vec.push(str);
+                            } else {
+                                return Err(());
+                            }
+                        }
+                    }
+                }
+                Ok(OutPutTypeValue::Csv(vec))
+            }
+        };
+    }
 }
 
 lazy_static! {
@@ -79,6 +171,7 @@ lazy_static! {
         m.insert("varchar",VariableType::String);
         m.insert("text",VariableType::String);
         m.insert("enum",VariableType::String);
+        m.insert("string",VariableType::String);
 
         m.insert("float",VariableType::Float);
         m

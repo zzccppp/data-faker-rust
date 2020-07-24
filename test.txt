@@ -1,1 +1,3 @@
 id||int||increase(1,1)
+name||string||enum(张三,李四,王五,赵四)
+file||string||enum_file(README.md)
