@@ -40,6 +40,7 @@ mod test {
     use data_faker_rust::configuration::FakerConfiguration;
     use std::borrow::Borrow;
     use data_faker_rust::configuration::definitions::{OutPutType, OutPutTypeValue};
+    use data_faker_rust::engine::FakerEngine;
 
     #[test]
     pub fn csv_test() {
@@ -100,5 +101,19 @@ mod test {
                 wtr.write_record(u);
             }
         }
+    }
+
+    #[test]
+    pub fn test_for_engine_json() {
+        //let config = FakerConfiguration::read_from_file(String::from("test.txt").borrow()).unwrap();
+        let eng = FakerEngine::new(&"test.txt".to_string(), 3).unwrap();
+        eng.manufacturing_to_file(OutPutType::Json, "test.json".to_string(), 100);
+    }
+
+    #[test]
+    pub fn test_for_engine_csv() {
+        //let config = FakerConfiguration::read_from_file(String::from("test.txt").borrow()).unwrap();
+        let eng = FakerEngine::new(&"test.txt".to_string(), 3).unwrap();
+        eng.manufacturing_to_file(OutPutType::Csv, "tt1.csv".to_string(), 100);
     }
 }
